@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css' ) }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/base.css' ) }}">
-    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js' ) }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js' ) }}"></script>
-    {% block css %}{% endblock %}
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css' ) }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/base.css' ) }}">
+        <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js' ) }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js' ) }}"></script>
+        {% block css %}{% endblock %}
 
-    <title>{% block title %}{% endblock %}</title>
-  </head>
+        <title>{% block title %}{% endblock %}</title>
+    </head>
 
-  <body>
-    <div id="wrapper">
-      {% block body %}{% endblock %}
-    </div>
+    <body>
+        <div id="wrapper">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="/single">Singleplayer</a></li>
+                <li><a href="/multi">Multiplayer</a></li>
+                <li class="pull-right"><a href="/login">Login</a></li>
+            </ul>
+            {% block body %}{% endblock %}
+        </div>
 
-    {% block js %}{% endblock %}
-  </body>
+        {% block js %}{% endblock %}
+    </body>
 
 </html>
