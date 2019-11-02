@@ -10,6 +10,18 @@ app.secret_key = os.urandom(16)
 def root():
     return render_template("home.html")
 
+@app.route("/single")
+def single():
+    return render_template("single.html")
+
+@app.route("/multi")
+def multi():
+    return render_template("multi.html")
+
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
 if __name__ == "__main__":
     app.debug = True
     app.run(host="0.0.0.0")
