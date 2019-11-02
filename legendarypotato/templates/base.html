@@ -15,11 +15,20 @@
 
     <body>
         <div id="wrapper">
+            {% for message in get_flashed_messages() %}
+            
+            <h3 class="text-center">{{ message }}</h3>
+            
+            {% endfor %}
             <ul class="nav nav-tabs" role="tablist">
                 <li id="home-link"><a href="/">Home</a></li>
                 <li id="single-link"><a href="/single">Singleplayer</a></li>
                 <li id="multi-link"><a href="/multi">Multiplayer</a></li>
+                {% if 'user' in session %}
+                <li id="login-link" class="pull-right"><a href="/logout">Logout</a></li>
+                {% else %}
                 <li id="login-link" class="pull-right"><a href="/login">Login</a></li>
+                {% endif %}
             </ul>
             {% block body %}{% endblock %}
         </div>
