@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from functools import wraps
+from utils import database_utils
 import os
 import random
 
@@ -35,6 +36,38 @@ def multi():
 @app.route("/login")
 def login():
     return render_template("login.html")
+
+
+@app.route("/auth", methods=["POST"])
+def auth():
+    if "submit" not in request.form or "user" not in request.form or "pwd" not in request.form:
+        flash("At least one form input was incorrect")
+        return redirect(url_for('login'))
+
+    if request.form['submit'] == 'login':
+        print(request.form)
+        print(database_utils.authenticate(request.form['user'], request.form['pwd']))
+        if database_utils.authenticate(request.form['user'], request.form['pwd']):
+            session['user'] = True
+            return redirect(url_for('root'))
+        else:
+            flash('Incorrect username or password')
+            return redirect(url_for('login'))
+    else:
+        success = database_utils.create_user(request.form['user'], request.form['pwd'])
+        print(success)
+        if (success):
+            session['user'] = True
+            return redirect(url_for('root'))
+        else:
+            flash('This username already exists!')
+            return redirect(url_for('login'))
+
+@app.route("/logout")
+def logout():
+    if 'user' in session:
+        session.pop('user')
+    return redirect(url_for('login'))
 
 if __name__ == "__main__":
     app.debug = True
