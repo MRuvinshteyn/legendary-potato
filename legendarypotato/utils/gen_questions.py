@@ -58,7 +58,7 @@ def init_quests():
 
 
         subject = 'algebra_hard'
-        temp_quest = alg.make_alg(2)[0]
+        temp_quest = alg.make_alg(1)[0]
         eqn = equation_solver.getRes(temp_quest)
         question_img = eqn['input_img']
         answer_img = eqn['answer_img']

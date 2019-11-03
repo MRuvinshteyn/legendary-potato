@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import itertools
 
+import string
 import requests
 from xml.dom import minidom
 import xml.etree.ElementTree as ET
