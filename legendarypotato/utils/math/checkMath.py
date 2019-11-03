@@ -1,39 +1,30 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import wap
+
+import requests
+from xml.dom import minidom
+import xml.etree.ElementTree as ET
+
 
 def getRes(input):
-	server = 'http://api.wolframalpha.com/v2/query.jsp'
+	server = 'http://api.wolframalpha.com/v2/query?'
 	appid = '6QYPX8-HUAE3WKH7J'
 	input = 'solve'+input
+	answer = list()
+	queryStr = server + 'appid=' + appid + '&input=solve' + input + '&podstate=Result__Step-by-step+solution&format=plaintext'
 
-	src = ''
-	alt = ''
+	print(requests.api.get(queryStr).content)
+	results = ET.fromstring((requests.api.get(queryStr).content))
+	for child in results:
+		if child.attrib['title'] == 'Results':
+			for child2 in child:
+				print(child2.tag)
+				if str(child2.tag) == 'subpod':
+					for child3 in child2:
+						print(child3.text)
+						answer.append(child3.text)
 
-	waeo = wap.WolframAlphaEngine(appid, server)
+	return answer
 
-	queryStr = waeo.CreateQuery(input)
-	result = waeo.PerformQuery(queryStr)
-	result = wap.WolframAlphaQueryResult(result)
-
-
-	for pod in result.Pods():
-		waPod = wap.Pod(pod)
-		if waPod.Title()[0] == "Result":
-			title = "Pod.title: " + waPod.Title()[0]
-			print title
-			for subpod in waPod.Subpods():
-				waSubpod = wap.Subpod(subpod)
-				plaintext = waSubpod.Plaintext()[0]
-				img = waSubpod.Img()
-				src = wap.scanbranches(img[0], 'src')[0]
-				alt = wap.scanbranches(img[0], 'alt')[0]
-				print "-------------"
-				print "img.src: " + src
-				print "img.alt: " + alt
-			print "\n"
-
-	return src,alt
-
-print getRes('3x+2')
+print(getRes('+3x-7%3D11'))
 
