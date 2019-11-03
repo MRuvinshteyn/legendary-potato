@@ -34,7 +34,7 @@ def get_user_by_id(userid):
 def addELO(userid, questionType):
     user = get_user_by_id(userid)
     assert user
-    if user['elos'].keys().contains()[questionType]:
+    if questionType in user['elos'].keys():
         user['elos'][questionType] += 50 * (1/int(user['games_played'][questionType]))
     else:
         user['elos'][questionType] = 1050
@@ -42,7 +42,7 @@ def addELO(userid, questionType):
 def subELO(userid, questionType):
     user = get_user_by_id(userid)
     assert user
-    if user['elos'].keys().contains(questionType):
+    if questionType in user['elos'].keys():
         user['elos'][questionType] -= 50 * (1/int(user['games_played'][questionType]))
     else:
         user['elos'][questionType] = 950

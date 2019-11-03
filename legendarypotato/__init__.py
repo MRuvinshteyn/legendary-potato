@@ -120,7 +120,7 @@ def game():
     # answerPic = equation['answer_img']
     # answers = equation['acceptable_answers']
 
-    return render_template("endless.html", question_img = question['question_img'], question_id = question['_id'], subject = subject)
+    return render_template("endless.html", question_img = question['question_img'], question_id = question['_id'], subject = subject, user_id = session['user'])
 
 
 @app.route("/about")
@@ -140,12 +140,21 @@ def get_question():
 @app.route("/getanswer", methods=["POST"])
 def get_answer():
     print(request.form)
-    if 'questionid' not in request.form or 'useranswer' not in request.form:
+    if 'questionid' not in request.form or 'useranswer' not in request.form or 'userid' not in request.form or 'subject' not in request.form :
         return 'Error!'
     else:
         question = database_utils.get_question_by_id(request.form['questionid'])
         #print(request.form['useranswer'], request.form['useranswer'] in question['acceptable_answers'])
-        return {"answer_img": question["answer_img"], "correct": request.form['useranswer'] in question['acceptable_answers']}
+        correct = request.form['useranswer'] in question['acceptable_answers']
+
+        print(request.form['userid'])
+        user = database_utils.get_user_by_id(request.form['userid'])
+        print(user)
+        if correct:
+            database_utils.addELO(request.form['userid'], request.form['subject'])
+        else:
+            database_utils.subELO(request.form['userid'], request.form['subject'])
+        return {"answer_img": question["answer_img"], "correct": correct}
 
 if __name__ == "__main__":
     app.debug = True
