@@ -32,10 +32,8 @@ def getRes(input):
                                     answer[child.attrib['title'] + '_text'] = child3.text
                 if child.attrib['title'] == 'Results' or child.attrib['title'] == 'Exact result' or child.attrib['title'] == 'Decimal form' or child.attrib['title'] == 'Answer': #Scan for the Result
                     for child2 in child:
-
                         if str(child2.tag) == 'subpod':
                             for child3 in child2:
-
                                 if child3.tag == 'img':
                                     answer['answer_img'] = child3.attrib['src']
                                 else:
