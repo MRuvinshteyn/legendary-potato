@@ -1,6 +1,5 @@
 """Implementation of JSONDecoder
 """
-import past
 import re
 import sys
 import struct

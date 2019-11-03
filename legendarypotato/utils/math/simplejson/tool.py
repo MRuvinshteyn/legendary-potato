@@ -8,7 +8,6 @@ pretty-print::
     $ echo '{ 1.2:3.4}' | python -msimplejson.tool
     Expecting property name: line 1 column 2 (char 2)
 """
-import past
 import simplejson
 
 def main():

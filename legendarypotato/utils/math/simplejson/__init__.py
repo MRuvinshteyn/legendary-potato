@@ -103,7 +103,6 @@ __all__ = [
     'JSONDecoder', 'JSONEncoder',
 ]
 
-import past
 from decoder import JSONDecoder
 from encoder import JSONEncoder
 

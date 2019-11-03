@@ -19,7 +19,6 @@
 __author__ = 'derik66@gmail.com'
 __version__ = '1.1-devel'
 
-import past
 import urllib2
 from xml.dom import minidom
 import simplejson as json

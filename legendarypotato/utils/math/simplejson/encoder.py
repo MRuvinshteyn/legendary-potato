@@ -1,6 +1,5 @@
 """Implementation of JSONEncoder
 """
-import past
 import re
 
 try:
