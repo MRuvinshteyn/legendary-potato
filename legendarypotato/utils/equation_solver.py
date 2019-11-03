@@ -8,7 +8,7 @@ import xml.etree.ElementTree as ET
 
 def getRes(input):
     server = 'http://api.wolframalpha.com/v2/query?'
-    appid = ''
+    appid = '6QYPX8-3U42KRYWEH'
     input = 'solve'+input
     answer = {}
     queryStr = server + 'appid=' + appid + '&podstate=Result__Step-by-step+solution'
@@ -18,6 +18,7 @@ def getRes(input):
     if results.attrib['success'] != 'false':
 
         for child in results:
+            print(child.attrib)
             if 'title' in child.attrib.keys():
                 if child.attrib['title'] == 'Input interpretation' or child.attrib['title'] == 'Input':
                     for child2 in child:
@@ -35,8 +36,8 @@ def getRes(input):
                                     answer[child.attrib['title'] + '_img'] = child3.attrib['src']
                                 else:
                                     answer[child.attrib['title'] + '_text'] = child3.text
-                                    break
-                if "Reference" in child.attrib['title'] or "Exact Solution" in child.attrib['title'] or "Plot" in child.attrib['title']:
+
+                if "Reference" in child.attrib['title'] or "solution" in child.attrib['title'] or "Plot" in child.attrib['title'] or "Solution" in child.attrib['title']:
                     for child2 in child:
                         for child3 in child2:
                             if child3.tag == 'plaintext':
@@ -51,4 +52,3 @@ def getRes(input):
 
     return answer
 
-print(getRes("2x - 3 + 8y = 87"))
