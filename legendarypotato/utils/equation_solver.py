@@ -2,10 +2,11 @@
 # -*- coding: utf-8 -*-
 import itertools
 
+import string
 import requests
 from xml.dom import minidom
 import xml.etree.ElementTree as ET
-
+import alg
 
 def getRes(input):
     server = 'http://api.wolframalpha.com/v2/query?' #Where the api call is made from
@@ -56,4 +57,4 @@ def getRes(input):
 
     return answer
 
-print(getRes(' 5 + 1 * 10 '))
+print(getRes(alg.make_alg(2)[0]))
