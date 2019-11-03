@@ -115,22 +115,32 @@ def game():
     # answerPic = equation['answer_img']
     # answers = equation['acceptable_answers']
 
-    return render_template("endless.html", question_img = question['question_img'], question_id = question['_id'])
+    return render_template("endless.html", question_img = question['question_img'], question_id = question['_id'], subject = subject)
 
 
 @app.route("/about")
 def about():
     return render_template("about.html")
 
-@app.route("/getanswer", methods=["POST"])
+@app.route("/getquestion", methods=["POST"])
 def get_question():
+    print(request.form)
+    if 'subject' not in request.form:
+        return 'Error!'
+    else:
+        subject = request.form['subject']
+        question = database_utils.get_random_question_by_subject(subject)
+        return {"question_img": question['question_img'], "question_id": str(question['_id'])}
+
+@app.route("/getanswer", methods=["POST"])
+def get_answer():
     print(request.form)
     if 'questionid' not in request.form or 'useranswer' not in request.form:
         return 'Error!'
     else:
         question = database_utils.get_question_by_id(request.form['questionid'])
-        print(request.form['useranswer'], request.form['useranswer'] in question['acceptable_answers'])
-        return {"answer_img": question["answer_img"], "acceptable_answers": question["acceptable_answers"]}
+        #print(request.form['useranswer'], request.form['useranswer'] in question['acceptable_answers'])
+        return {"answer_img": question["answer_img"], "correct": request.form['useranswer'] in question['acceptable_answers']}
 
 if __name__ == "__main__":
     app.debug = True

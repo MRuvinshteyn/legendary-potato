@@ -10,8 +10,9 @@
 
 <div id="form-holder">
   <div class="form-cell text-center">
-    <span id="question-id">{{ question_id }}</span>
-    <span id="question"><img src="{{ question_img }}"></span><br>
+    <span id="question-id" class="hidden-data">{{ question_id }}</span>
+    <span id="subject" class="hidden-data">{{ subject }}</span>
+    <span id="question"><img id="question-img" src="{{ question_img }}"></span><br>
     <div class="form-group">
       <input id="useranswer" type="text" name="answer">
     </div>
