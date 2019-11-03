@@ -46,3 +46,6 @@ def create_game(player1, player2, endless, subject):
 
 def get_game_by_id(game_id):
     return games.find_one({"_id": ObjectId(game_id)})
+
+def get_games_by_player_id(player_id):
+    return list(games.find({"players": ObjectId(player_id)}))
