@@ -66,13 +66,12 @@ def make_alg_mult_lines(line_nums):
 def make_alg(diff):
     #beginner
     if(diff == 0):
-        if(randint(0,1) == 0):
-            return make_alg_basic()
-        else:
-            return make_alg_exp()
-    if(diff == 1):
-        return make_alg_vars(4,"x")
+        return make_alg_basic()
+    if(dif == 1):
+        return make_alg_exp()
     if(diff == 2):
-        return make_alg_mult_lines(3)
+        return make_alg_vars(4,"x")
+    #if(diff == 2):
+    #    return make_alg_mult_lines(3)
 
 print(make_alg(int(sys.argv[1]))[0])
