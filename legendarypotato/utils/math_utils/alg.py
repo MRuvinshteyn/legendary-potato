@@ -28,7 +28,6 @@ def make_alg_basic(max_vars):
     print("Answer:")
     print(eval(expr))
 
-
 #exponents + parenthe+sis
 def make_alg_exp(max_vars):
     num_vars = randint(2, max_vars)
@@ -84,6 +83,46 @@ def make_alg_exp(max_vars):
     print("Answer:")
     print(eval(expr))
 
-#make_alg(int(sys.argv[1]))
+#fractional operations
+def make_alg_frac(max_vars, same_dem):
+
+    num_vars = randint(2, max_vars)
+
+    n1 = randint(0, 10)
+    n2 = randint(0, 10)
+    while(n2 == 0):
+        n2 = randint(0, 10)
+    num_vars-=1
+    expr = '(' + str(n1) + '/' + str(n2) + ')'
+
+    last_div = False
+    while(num_vars!=0):
+        n1 = randint(0,10)
+        if(last_div):
+            while(n1 == 0):
+                n1 = randint(0, 10)
+        if(not same_dem):
+            n2 = randint(0,10)
+            while(n2 == 0):
+                n2 = randint(0, 10)
+        
+        i = randint(0,3)
+        if(same_dem):
+            i = randint(0,1)
+        expr += ops[i] + '(' + str(n1) + '/' + str(n2) + ')'
+        if(ops[i] == '/'):
+            last_div = True
+        else:
+            last_div = False
+        num_vars-=1
+            
+
+    print("\nSolve:")
+    print(expr)
+    print("Answer:")
+    print(eval(expr))
+
 make_alg_basic(int(sys.argv[1]))
 make_alg_exp(int(sys.argv[1]))
+make_alg_frac(int(sys.argv[1]), True)
+make_alg_frac(int(sys.argv[1]), False)
