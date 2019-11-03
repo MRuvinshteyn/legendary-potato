@@ -46,7 +46,7 @@ def init_quests():
 
         print("Created Advanced Arithmetic Question ", i)
 
-        subject = 'algebra_beginner'
+        subject = 'algebra_easy'
         temp_quest = alg.make_alg(0)
         eqn = equation_solver.getRes(temp_quest)
         question_img = eqn['input_img']
@@ -56,17 +56,8 @@ def init_quests():
         database_utils.create_question(question_img, acceptable_answers, answer_img, subject)
         print("Created Beginner Algebra Question ", i)
 
-        subject = 'algebra_intermediate'
-        temp_quest = alg.make_alg(1)
-        eqn = equation_solver.getRes(temp_quest)
-        question_img = eqn['input_img']
-        answer_img = eqn['answer_img']
-        acceptable_answers = eqn['acceptable_answers']
 
-        database_utils.create_question(question_img, acceptable_answers, answer_img, subject)
-        print("Created Intermediate Algebra Question ", i)
-
-        subject = 'algebra_advanced'
+        subject = 'algebra_hard'
         temp_quest = alg.make_alg(2)
         eqn = equation_solver.getRes(temp_quest)
         question_img = eqn['input_img']
