@@ -140,3 +140,5 @@ def make_arith():
 #print_ret(make_arith_frac(int(sys.argv[1]), True))
 #print_ret(make_arith_frac(int(sys.argv[1]), False))
 #print_ret(make_arith())
+
+#print(make_arith_basic(int(sys.argv[1]))[0])
