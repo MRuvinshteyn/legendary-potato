@@ -101,22 +101,34 @@ def logout():
 @require_login
 def game():
     subject = request.form['subject']
-    question = ""
-    if subject == 'arithmetic_basic':
-        question = utils.arith.make_arith_basic(3)[0]
-    elif subject == 'arithmetic_intermediate':
-        question = utils.arith.make_arith_exp(5)[0]
-    elif subject == 'arithmetic_expert':
-        question = utils.arith.make_arith()[0]
+    # question = ""
+    question = database_utils.get_random_question_by_subject(subject)
 
-    equation = equation_solver.getRes(question)
-    inputPic = equation['input_img']
-    answerPic = equation['answer_img']
-    answers = equation['acceptable_answers']
+    # if subject == 'arithmetic_basic':
+    #     question = utils.arith.make_arith_basic(3)[0]
+    # elif subject == 'arithmetic_intermediate':
+    #     question = utils.arith.make_arith_exp(5)[0]
+    # elif subject == 'arithmetic_expert':
+    #     question = utils.arith.make_arith()[0]
 
-    return render_template("endless.html", questionImg = inputPic, answerImg = answerPic, possibleAnswers = answers)
+    # equation = equation_solver.getRes(question)
+    # inputPic = equation['input_img']
+    # answerPic = equation['answer_img']
+    # answers = equation['acceptable_answers']
+
+    return render_template("endless.html", question_img = question['question_img'], question_id = question['_id'])
 
 
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+@app.route("/getquestion", methods=["POST"])
+def get_question():
+    if 'questionid' not in request.form:
+        return 'Error!'
+    else:
+        return database_utils.get_game_by_id(request.form['questionid'])
 
 if __name__ == "__main__":
     app.debug = True
