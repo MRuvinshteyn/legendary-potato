@@ -88,7 +88,7 @@ def game():
     inputPic = answers['input_img']
     answerPic = answers['answer_img']
 
-    return render_template("endless.html", questionImage = inputPic)
+    return render_template("endless.html", questionImg = inputPic)
 
 
 
