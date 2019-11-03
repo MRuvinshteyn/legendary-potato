@@ -44,7 +44,7 @@ def auth():
         flash("At least one form input was incorrect")
         return redirect(url_for('login'))
 
-    if request.form['submit'] == 'login':
+    if request.form['submit'] == 'Login':
         print(request.form)
         print(database_utils.authenticate(request.form['user'], request.form['pwd']))
         if database_utils.authenticate(request.form['user'], request.form['pwd']):
