@@ -18,7 +18,7 @@ def getRes(input):
     if results.attrib['success'] != 'false':
 
         for child in results:
-
+            print(child.attrib)
             if child.attrib['title'] == 'Input interpretation' or child.attrib['title'] == 'Input':
                 for child2 in child:
 
@@ -37,7 +37,7 @@ def getRes(input):
                                 answer.append(child3.attrib['src'])
                             else:
                                 answer.append(child3.text)
-            if "Reference" in child.attrib['title']:
+            if "Reference" in child.attrib['title'] or "Solution" in child.attrib['title'] or "Plot" in child.attrib['title']:
                 for child2 in child:
                     for child3 in child2:
                         if child3.tag == 'plaintext':
@@ -52,5 +52,5 @@ def getRes(input):
 
     return answer
 
-print(getRes(' sin ( pi / 6 ) '))
+print(getRes(' sin ( x / 6 ) = x '))
 
