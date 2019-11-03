@@ -34,26 +34,32 @@ def get_user_by_id(userid):
 def addELO(userid, questionType):
     user = get_user_by_id(userid)
     assert user
-    if questionType in user['elos'].keys():
-        user['elos'][questionType] += 50 * (1/int(user['games_played'][questionType]))
+    playGame(userid, questionType)
+    if questionType in user['elos']:
+        #user['elos'][questionType] += 50 * (1/int(user['games_played'][questionType]))
+        users.update({'_id': ObjectId(userid)}, {'$set': {'elos.'+questionType: user['elos'][questionType] + 50 * (1/int(user['games_played'][questionType])**.1)}} )
     else:
-        user['elos'][questionType] = 1050
+        users.update({'_id': ObjectId(userid)}, {'$set': {'elos.'+questionType: 1050}} )
+
 
 def subELO(userid, questionType):
     user = get_user_by_id(userid)
     assert user
-    if questionType in user['elos'].keys():
-        user['elos'][questionType] -= 50 * (1/int(user['games_played'][questionType]))
+    print(questionType in user['games_played'])
+    playGame(userid, questionType)
+    if questionType in user['elos']:
+        #user['elos'][questionType] -= 50 * (1/int(user['games_played'][questionType]))
+        users.update({'_id': ObjectId(userid)}, {'$set': {'elos.'+questionType: user['elos'][questionType] - 50 * (1/int(user['games_played'][questionType])**.1)}} )
     else:
-        user['elos'][questionType] = 950
+        users.update({'_id': ObjectId(userid)}, {'$set': {'elos.'+questionType: 950}} )
 
 def playGame(userid, questionType):
     user = get_user_by_id(userid)
     assert user
-    if user['games_played'].keys().contains(questionType):
-        user['games_played'][questionType] += 1
+    if questionType in user['games_played']:
+        users.update({'_id': ObjectId(userid)}, {'$set': {'games_played.'+questionType: user['elos'][questionType] + 1}} )
     else:
-        user['games_played'][questionType] = 1
+        users.update({'_id': ObjectId(userid)}, {'$set': {'games_played.'+questionType: 1}} )
 
 
 def authenticate(username, password):
