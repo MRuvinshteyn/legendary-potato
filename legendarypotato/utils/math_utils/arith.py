@@ -52,7 +52,7 @@ def make_arith_exp(max_vars):
         #4 is ^
         elif(i == 4):
             n = randint(-3, 3)
-            tmp_expr += '**' + '(' + str(n)
+            tmp_expr += '^' + '(' + str(n)
             add_parenths=1
 
         #gives parenthesis
@@ -116,6 +116,8 @@ def make_arith_frac(max_vars, same_dem):
 def print_ret(ret):
     print("\nSolve:")
     print(ret[0])
+
+    ret[0].replace("^", "**")
     print("Answer:")
     print(eval(ret[0]))
 
