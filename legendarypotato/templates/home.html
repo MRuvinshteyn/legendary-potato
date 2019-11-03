@@ -1,7 +1,22 @@
 {% extends "base.html" %}
 
+{% block active_link %}home-link{% endblock %}
+
 {% block body %}
 
-{% endblock %}
+<div class="container">
+    <div class="row">
+        <button class="col-sm-2 btn btn-light">Arithmetic (Beginner)</button>
+        <button class="col-sm-2 btn btn-light">Arithmetic (Intermediate)</button>
+        <button class="col-sm-2 btn btn-light">Arithmetic (Expert)</button>
+    </div>
+    <div class="row">
+        <button class="col-sm-3 btn btn-light">Algebra (Easy)</button>
+        <button class="col-sm-3 btn btn-light">Algebra (Hard)</button>
+    </div>
+    <div class="row">
+        <button class="col-sm-6 btn btn-light">Geometry/Trigonometry</button>
+    </div>
+</div>
 
-{% block active_link %}home-link{% endblock %}
+{% endblock %}
