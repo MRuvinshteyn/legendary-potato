@@ -4,11 +4,13 @@ var qid = document.getElementById('question-id').innerText;
 console.log(qid);
 
 guessButton.addEventListener('click', function() {
+  var useranswer = document.getElementById('useranswer').value;
   $.ajax({
     type: "POST",
-    url: "/getquestion",
+    url: "/getanswer",
     data: {
-      questionid: qid
+      questionid: qid,
+      useranswer: useranswer
     },
     success: function(e) {
       console.log(e);
