@@ -28,27 +28,27 @@ def root():
 
     arithmetic_beginner = 1000
     if "arithmetic_beginner" in data:
-        arithmetic_beginner = data["arithmetic_beginner"]
+        arithmetic_beginner = int(data["arithmetic_beginner"])
 
     arithmetic_intermediate = 1000
     if "arithmetic_intermediate" in data:
-        arithmetic_intermediate = data["arithmetic_intermediate"]
+        arithmetic_intermediate = int(data["arithmetic_intermediate"])
 
     arithmetic_expert = 1000
     if "arithmetic_expert" in data:
-        arithmetic_expert = data["arithmetic_expert"]
+        arithmetic_expert = int(data["arithmetic_expert"])
 
     algebra_easy = 1000
     if "algebra_easy" in data:
-        algebra_easy = data["algebra_easy"]
+        algebra_easy = int(data["algebra_easy"])
 
     algebra_hard = 1000
     if "algebra_hard" in data:
-        algebra_hard = data["algebra_hard"]
+        algebra_hard = int(data["algebra_hard"])
 
     geometry = 1000
     if "geometry" in data:
-        geometry = data["geometry"]
+        geometry = int(data["geometry"])
 
     return render_template("home.html", arithmetic_beginner = arithmetic_beginner, arithmetic_intermediate = arithmetic_intermediate, arithmetic_expert = arithmetic_expert,
                           algebra_easy = algebra_easy, algebra_hard = algebra_hard, geometry = geometry)
