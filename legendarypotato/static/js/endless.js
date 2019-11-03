@@ -16,6 +16,7 @@ function getNewQuestion(subject) {
       console.log(e);
       qid = document.getElementById('question-id').innerText = e.question_id;
       document.getElementById('question-img').src = e.question_img;
+      document.getElementById('useranswer').value = '';
     },
   });
 }
@@ -32,7 +33,7 @@ guessButton.addEventListener('click', function() {
     success: function(e) {
       console.log(e);
       document.getElementById('solution-pic').src = e.answer_img;
-
+      document.getElementById('correct').innerText = (e.correct? "Correct!": "Incorrect");
       getNewQuestion(subject);
     },
   });
