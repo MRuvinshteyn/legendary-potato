@@ -37,8 +37,10 @@ def getRes(input):
                                 if child3.tag == 'img':
                                     answer['answer_img'] = child3.attrib['src']
                                 else:
+                                    print((child3.text.split("\n").pop()).replace(" | ", "").replace('±',"").replace(" ", "").replace("x=", "").split('or'))
                                     answer['acceptable_answers'].append(str(child3.text.split("\n").pop()).replace(" | ", "").replace('±',"").replace(" ", "").replace("x=", "").split('or')) # add the plaintext answer to the list of acceptable answers
-                                    answer['acceptable_answers'] = list(itertools.chain.from_iterable(answer['acceptable_answers'])) #Formatting
+                                    if list in answer['acceptable_answers']:
+                                        answer['acceptable_answers'] = list(itertools.chain.from_iterable(answer['acceptable_answers'])) #Formatting
                 if "Reference" in child.attrib['title'] or "solution" in child.attrib['title'] or "Plot" in child.attrib['title'] or "Solution" in child.attrib['title']: #Scan for mostly trig and algebra stuff
                     for child2 in child:
                         for child3 in child2:
@@ -55,3 +57,4 @@ def getRes(input):
 
     return answer
 
+print(getRes(' 5 + 1 * 10 '))
