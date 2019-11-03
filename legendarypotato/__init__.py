@@ -93,9 +93,10 @@ def game():
         inputPic = answers['input_img']
         answerPic = answers['answer_img']
 
+        #If answer is wrong
+        break
 
-
-    return render_template("home.html")
+    return render_template("endless.html")
 
 
 
