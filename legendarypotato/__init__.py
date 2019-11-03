@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 from functools import wraps
 from utils import database_utils
 from utils import equation_solver
-import utils
 
 import os
 import random
@@ -78,6 +77,7 @@ def auth():
         user = database_utils.authenticate(request.form['user'], request.form['pwd'])
         if user:
             session['user'] = str(user)
+            session.permanent = True
             return redirect(url_for('root'))
         else:
             flash('Incorrect username or password')
@@ -86,6 +86,7 @@ def auth():
         success = database_utils.create_user(request.form['user'], request.form['pwd'])
         if (success):
             session['user'] = str(success)
+            session.permanent = True
             return redirect(url_for('root'))
         else:
             flash('This username already exists!')
@@ -123,12 +124,15 @@ def game():
 def about():
     return render_template("about.html")
 
-@app.route("/getquestion", methods=["POST"])
+@app.route("/getanswer", methods=["POST"])
 def get_question():
-    if 'questionid' not in request.form:
+    print(request.form)
+    if 'questionid' not in request.form or 'useranswer' not in request.form:
         return 'Error!'
     else:
-        return database_utils.get_game_by_id(request.form['questionid'])
+        question = database_utils.get_question_by_id(request.form['questionid'])
+        print(request.form['useranswer'], request.form['useranswer'] in question['acceptable_answers'])
+        return {"answer_img": question["answer_img"], "acceptable_answers": question["acceptable_answers"]}
 
 if __name__ == "__main__":
     app.debug = True
