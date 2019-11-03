@@ -37,7 +37,6 @@ def getRes(input):
                                 if child3.tag == 'img':
                                     answer['answer_img'] = child3.attrib['src']
                                 else:
-                                    print((child3.text.split("\n").pop()).replace(" | ", "").replace('±',"").replace(" ", "").replace("x=", "").split('or'))
                                     answer['acceptable_answers'].append(str(child3.text.split("\n").pop()).replace(" | ", "").replace('±',"").replace(" ", "").replace("x=", "").split('or')) # add the plaintext answer to the list of acceptable answers
                                     if list in answer['acceptable_answers']:
                                         answer['acceptable_answers'] = list(itertools.chain.from_iterable(answer['acceptable_answers'])) #Formatting
