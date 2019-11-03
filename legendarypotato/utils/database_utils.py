@@ -14,14 +14,15 @@ def hash_password(username, password):
 
 def create_user(username, password):
     if get_user_by_name(username) == None:
-        users.insert_one({
+        user = users.insert_one({
             "username": username,
             "password": hash_password(username, password),
             "games": [],
-            "games_played": {}
+            "games_played": {},
+            "elos": {}
         })
-        return True
-    return False
+        return user.inserted_id
+    return None
 
 def get_user_by_name(username):
     return users.find_one({"username": username})
@@ -32,8 +33,8 @@ def get_user_by_id(userid):
 def authenticate(username, password):
     user = get_user_by_name(username)
     if user == None:
-        return False
-    return user["password"] == hash_password(username, password)
+        return None
+    return user["_id"]
 
 def create_game(player1, player2, endless, subject):
     game = games.insert_one({
