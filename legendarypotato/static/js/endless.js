@@ -14,6 +14,7 @@ guessButton.addEventListener('click', function() {
     },
     success: function(e) {
       console.log(e);
+      document.getElementById('solution-pic').src = e.answer_img;
     },
   });
 });
