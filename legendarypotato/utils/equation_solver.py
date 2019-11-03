@@ -18,7 +18,7 @@ def getRes(input):
     if results.attrib['success'] != 'false':
 
         for child in results:
-            print(child.attrib)
+
             if 'title' in child.attrib.keys():
                 if child.attrib['title'] == 'Input interpretation' or child.attrib['title'] == 'Input':
                     for child2 in child:
@@ -35,7 +35,7 @@ def getRes(input):
                                 if child3.tag == 'img':
                                     answer[child.attrib['title'] + '_img'] = child3.attrib['src']
                                 else:
-                                    answer[child.attrib['title'] + '_text'] = child3.text
+                                    answer[child.attrib['title'] + '_text'] = child3.text.split("\n").pop()
 
                 if "Reference" in child.attrib['title'] or "solution" in child.attrib['title'] or "Plot" in child.attrib['title'] or "Solution" in child.attrib['title']:
                     for child2 in child:
