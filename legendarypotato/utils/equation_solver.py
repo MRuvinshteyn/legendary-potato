@@ -6,7 +6,7 @@ import string
 import requests
 from xml.dom import minidom
 import xml.etree.ElementTree as ET
-import alg
+
 
 def getRes(input):
     server = 'http://api.wolframalpha.com/v2/query?' #Where the api call is made from
@@ -56,5 +56,3 @@ def getRes(input):
                 print("did you mean: " + child2.text + " ?")
 
     return answer
-
-print(getRes(alg.make_alg(2)[0]))

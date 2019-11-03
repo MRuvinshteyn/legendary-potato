@@ -75,4 +75,3 @@ def make_alg(diff):
     if(diff == 2):
         return make_alg_mult_lines(3)
 
-print(make_alg(int(sys.argv[1]))[0])
