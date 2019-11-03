@@ -118,6 +118,11 @@ def game():
 
     return render_template("endless.html", question_img = question['question_img'], question_id = question['_id'])
 
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
 @app.route("/getquestion", methods=["POST"])
 def get_question():
     if 'questionid' not in request.form:

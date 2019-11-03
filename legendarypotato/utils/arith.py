@@ -25,7 +25,7 @@ def make_arith_basic(max_vars):
     return [expr,""]
     
 
-#exponents + parenthe+sis
+#exponents + parenthe+sis man
 def make_arith_exp(max_vars):
     num_vars = randint(2, max_vars)
 
@@ -51,7 +51,9 @@ def make_arith_exp(max_vars):
             add_parenths = i2
         #4 is ^
         elif(i == 4):
-            n = randint(-3, 3)
+            n = randint(1, 3)
+            if(randint(0,1)==0):
+                n *= -1
             tmp_expr += '**' + '(' + str(n) + ')'
 
         #gives parenthesis
