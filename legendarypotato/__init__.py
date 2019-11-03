@@ -86,6 +86,8 @@ def game():
 
     answers = equation_solver.getRes(question)
     inputPic = answers['input_img']
+
+
     answerPic = answers['answer_img']
 
     return render_template("endless.html", questionImage = inputPic)
