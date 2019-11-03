@@ -52,8 +52,7 @@ def make_arith_exp(max_vars):
         #4 is ^
         elif(i == 4):
             n = randint(-3, 3)
-            tmp_expr += '**' + '(' + str(n)
-            add_parenths=1
+            tmp_expr += '**' + '(' + str(n) + ')'
 
         #gives parenthesis
         if(eval(expr+(')'*open_parenths)) == 0 and i == 4):
