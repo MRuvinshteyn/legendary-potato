@@ -1,10 +1,17 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from functools import wraps
 from utils import database_utils
+from utils import equation_solver
+from utils import math_utils
+from math_utils import *
+
 import os
 import random
 
 # authentication wrapper
+from legendarypotato import utils
+
+
 def require_login(f):
     @wraps(f)
     def inner(*args, **kwargs):
@@ -72,7 +79,25 @@ def logout():
 @app.route("/game", methods=["GET"])
 @require_login
 def game():
+    subject = request.form['subject']
+    while(True):
+        question = ""
+        if subject == 'arithmetic_basic':
+            question = math_utils.arith.make_arith_basic(3)
+        elif subject == 'arithmetic_intermediate':
+            question = math_utils.arith.make_arith_exp(5)
+        elif subject == 'arithmetic_expert':
+            question = math_utils.arith.make_arith()
+
+        answers = equation_solver.getRes(question)
+        inputPic = answers['input_img']
+        answerPic = answers['answer_img']
+
+
+
     return render_template("home.html")
+
+
 
 if __name__ == "__main__":
     app.debug = True

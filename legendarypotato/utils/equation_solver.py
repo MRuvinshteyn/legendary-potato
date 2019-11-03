@@ -10,7 +10,7 @@ def getRes(input):
     server = 'http://api.wolframalpha.com/v2/query?' #Where the api call is made from
     appid = '6QYPX8-3U42KRYWEH' #API key - may have problems with git, try not to commit with this still filled
     input = 'solve'+input #Formatted input for  query param
-    answer = {'acceptable_answers': []} #initial answer dictionary
+    answer = {'input_img': "", 'answer_img' : "", 'acceptable_answers': []} #initial answer dictionary
     queryStr = server + 'appid=' + appid + '&podstate=Result__Step-by-step+solution' #Near complete query string - input
 
     #print(requests.api.get(queryStr).content)
@@ -25,7 +25,7 @@ def getRes(input):
                         if str(child2.tag) == 'subpod': #Find relevant tags
                             for child3 in child2: #dig through more xml
                                 if child3.tag == 'img': #add the image link to the dictionary
-                                    answer[child.attrib['title'] + '_img'] = child3.attrib['src']
+                                    answer['input_img'] = child3.attrib['src']
                                 else: #add the plaintext to the dictionary
                                     answer[child.attrib['title'] + '_text'] = child3.text
                 if child.attrib['title'] == 'Results' or child.attrib['title'] == 'Exact result' or child.attrib['title'] == 'Decimal form' or child.attrib['title'] == 'Answer': #Scan for the Result
@@ -33,7 +33,7 @@ def getRes(input):
                         if str(child2.tag) == 'subpod':
                             for child3 in child2:
                                 if child3.tag == 'img':
-                                    answer[child.attrib['title'] + '_img'] = child3.attrib['src']
+                                    answer['answer_img'] = child3.attrib['src']
                                 else:
                                     answer['acceptable_answers'].append(str(child3.text.split("\n").pop()).strip('|')) # add the plaintext answer to the list of acceptable answers
 
