@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
+from datetime import timedelta
 from functools import wraps
 from utils import database_utils
 from utils import equation_solver
@@ -77,6 +78,8 @@ def auth():
         user = database_utils.authenticate(request.form['user'], request.form['pwd'])
         if user:
             session['user'] = str(user)
+            session.permanent = True
+            app.permanent_session_lifetime = timedelta(minutes=30)
             return redirect(url_for('root'))
         else:
             flash('Incorrect username or password')
@@ -85,6 +88,8 @@ def auth():
         success = database_utils.create_user(request.form['user'], request.form['pwd'])
         if (success):
             session['user'] = str(success)
+            session.permanent = True
+            app.permanent_session_lifetime = timedelta(minutes=30)
             return redirect(url_for('root'))
         else:
             flash('This username already exists!')
