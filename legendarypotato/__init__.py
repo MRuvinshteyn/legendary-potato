@@ -116,7 +116,9 @@ def game():
 
     return render_template("endless.html", questionImg = inputPic, answerImg = answerPic, possibleAnswers = answers)
 
-
+@app.route("/about")
+def about():
+    return render_template("about.html")
 
 if __name__ == "__main__":
     app.debug = True
