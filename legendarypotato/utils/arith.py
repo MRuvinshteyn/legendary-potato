@@ -10,7 +10,7 @@ def make_arith_basic(max_vars):
 
     n = randint(0, 10)
     num_vars-=1
-    expr = str(n)
+    expr = " " + str(n)
     
     while(num_vars!=0):
         n = randint(0,10)

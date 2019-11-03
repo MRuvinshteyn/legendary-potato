@@ -163,16 +163,22 @@ def make_surf_area():
 def make_eq_line():
     #given 2 points
     if(randint(0,1) == 0):
-        pt1 = [randint(-25,25), randint(-25,25)]
-        pt2 = [randint(-25,25), randint(-25,25)]
-        while(pt2[0] - pt1[0] == 0):
-            pt2[0] = randint(-25,25)
+        pt1 = [randint(-10,10), randint(-10,10)]
+        pt2 = [randint(-10,10), randint(-10,10)]
         m = (pt2[1]-pt1[1])/(pt2[0]-pt1[0])
-        print("\nFind the equation of a line containing the points (%d,%d) and (%d,%d). Leave it in point-slope form." %(pt1[0],pt1[1], pt2[0],pt2[1]))
-        print("Answer:")
-        print("y - (%d) = %f (x - (%d))" %(pt1[1], m, pt1[0]))
-        print("OR:")
-        print("y - (%d) = %f (x - (%d))" %(pt2[1], m, pt2[0]))
+        while(pt2[0] - pt1[0] == 0 and isinstance(m,int)):
+            pt2 = [randint(-10,10),randint(-10,10)]
+            m = (pt2[1]-pt1[1])/(pt2[0]-pt1[0])
+        question = "Find the equation of a line containing the points (%d,%d) and (%d,%d). Leave it in point-slope form." %(pt1[0],pt1[1], pt2[0],pt2[1])
+        if(pt1[0] > 0):
+            s1 = "+ " + str(pt1[0]) + " " 
+        elif(p1[0] < 0):
+            s1 = "- " + str(abs(pt[0])) + " "
+        else:
+            s1 = ""
+        answer1 = "y %s= %f (x %s)" %(s1, m, s2)
+        answer2 = "y %s= %f (x %s)" %(s3, m, s4)
+        return [question, answer1, answer2]
     #given m,b
     else:
         m = randint(-25,25)
