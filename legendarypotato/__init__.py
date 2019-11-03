@@ -2,14 +2,10 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 from functools import wraps
 from utils import database_utils
 from utils import equation_solver
-from utils import math_utils
-from math_utils import *
+import utils
 
 import os
 import random
-
-# authentication wrapper
-from legendarypotato import utils
 
 
 def require_login(f):
@@ -76,26 +72,25 @@ def logout():
         session.pop('user')
     return redirect(url_for('login'))
 
-@app.route("/game", methods=["GET"])
+@app.route("/game", methods=["POST"])
 @require_login
 def game():
     subject = request.form['subject']
-    while(True):
-        question = ""
-        if subject == 'arithmetic_basic':
-            question = math_utils.arith.make_arith_basic(3)
-        elif subject == 'arithmetic_intermediate':
-            question = math_utils.arith.make_arith_exp(5)
-        elif subject == 'arithmetic_expert':
-            question = math_utils.arith.make_arith()
+    question = ""
+    if subject == 'arithmetic_basic':
+        question = utils.arith.make_arith_basic(3)[0]
+    elif subject == 'arithmetic_intermediate':
+        question = utils.arith.make_arith_exp(5)[0]
+    elif subject == 'arithmetic_expert':
+        question = utils.arith.make_arith()[0]
 
-        answers = equation_solver.getRes(question)
-        inputPic = answers['input_img']
-        answerPic = answers['answer_img']
-
+    answers = equation_solver.getRes(question)
+    inputPic = answers['input_img']
+    answerPic = answers['answer_img']
 
 
-    return render_template("home.html")
+
+    return render_template("endless.html", questionImage = inputPic)
 
 
 
