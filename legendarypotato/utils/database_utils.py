@@ -31,6 +31,31 @@ def get_user_by_name(username):
 def get_user_by_id(userid):
     return users.find_one({"_id": ObjectId(userid)})
 
+def addELO(userid, questionType):
+    user = get_user_by_id(userid)
+    assert user
+    if user['elos'].keys().contains()[questionType]:
+        user['elos'][questionType] += 50 * (1/int(user['games_played'][questionType]))
+    else:
+        user['elos'][questionType] = 1050
+
+def subELO(userid, questionType):
+    user = get_user_by_id(userid)
+    assert user
+    if user['elos'].keys().contains(questionType):
+        user['elos'][questionType] -= 50 * (1/int(user['games_played'][questionType]))
+    else:
+        user['elos'][questionType] = 950
+
+def playGame(userid, questionType):
+    user = get_user_by_id(userid)
+    assert user
+    if user['games_played'].keys().contains(questionType):
+        user['games_played'][questionType] += 1
+    else:
+        user['games_played'][questionType] = 1
+
+
 def authenticate(username, password):
     user = get_user_by_name(username)
     if user == None:
