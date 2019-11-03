@@ -18,26 +18,24 @@ def getRes(input):
     if results.attrib['success'] != 'false':
 
         for child in results:
-            #print(child.attrib)
             if 'title' in child.attrib.keys():
                 if child.attrib['title'] == 'Input interpretation' or child.attrib['title'] == 'Input':
                     for child2 in child:
-
                         if str(child2.tag) == 'subpod':
                             for child3 in child2:
                                 if child3.tag == 'img':
                                     answer[child.attrib['title'] + '_img'] = child3.attrib['src']
                                 else:
                                     answer[child.attrib['title'] + '_text'] = child3.text
-                if child.attrib['title'] == 'Results' or child.attrib['title'] == 'Exact result' or child.attrib['title'] == 'Decimal form':
+                if child.attrib['title'] == 'Results' or child.attrib['title'] == 'Exact result' or child.attrib['title'] == 'Decimal form' or child.attrib['title'] == 'Answer':
                     for child2 in child:
-
                         if str(child2.tag) == 'subpod':
                             for child3 in child2:
                                 if child3.tag == 'img':
                                     answer[child.attrib['title'] + '_img'] = child3.attrib['src']
                                 else:
                                     answer[child.attrib['title'] + '_text'] = child3.text
+                                    break
                 if "Reference" in child.attrib['title'] or "Exact Solution" in child.attrib['title'] or "Plot" in child.attrib['title']:
                     for child2 in child:
                         for child3 in child2:
