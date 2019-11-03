@@ -1,0 +1,9 @@
+.form-holder {
+    display: flex;
+    justify-content: center;
+    width: auto;
+}
+
+.form-holder .form-cell {
+    float: left;
+}
