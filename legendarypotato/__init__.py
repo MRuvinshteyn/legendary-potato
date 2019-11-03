@@ -69,6 +69,11 @@ def logout():
         session.pop('user')
     return redirect(url_for('login'))
 
+@app.route("/game", methods=["GET"])
+@require_login
+def game():
+    return render_template("home.html")
+
 if __name__ == "__main__":
     app.debug = True
     app.run(host="0.0.0.0")
