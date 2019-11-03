@@ -18,7 +18,6 @@ def init_quests():
         acceptable_answers = eqn['acceptable_answers']
 
         print("Created Basic Arithmetic Question ", i)
-        input()
 
         database_utils.create_question(question_img, acceptable_answers, answer_img, subject)
 
@@ -30,7 +29,7 @@ def init_quests():
         acceptable_answers = eqn['acceptable_answers']
 
         print("Created Intermediate Arithmetic Question ", i)
-        input()
+
 
         database_utils.create_question(question_img, acceptable_answers, answer_img, subject)
 
@@ -44,6 +43,6 @@ def init_quests():
         database_utils.create_question(question_img, acceptable_answers, answer_img, subject)
 
         print("Created Advanced Arithmetic Question ", i)
-        input()
+
 
 init_quests()
