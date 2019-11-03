@@ -1,17 +1,41 @@
 {% extends "base.html" %}
 
+{% block active_link %}single-link{% endblock %}
+
 {% block body %}
 
 <div id="form-holder">
-    <div class="form-cell text-center">
-        <form>
-            <span id="question"><img src="{{ questionImg }}"></span><br>
-            <div class="form-group">
-                <input type="number" name="answer">
-            </div>
-            <input class="btn btn-light" type="submit" value="Guess">
-        </form>
+  <div class="form-cell text-center">
+    <span id="question"><img src="{{ questionImg }}"></span><br>
+    <div class="form-group">
+      <input type="text" name="answer">
     </div>
+    <button id="guess-button" class="btn btn-light" data-toggle="modal" data-target="#answerModal"> Guess </button>
+  </div>
 </div>
 
+<div class="modal fade" id="answerModal" tabindex="-1" role="dialog" aria-labelledby="answerModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Solution</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script src="{{ url_for('static', filename='js/endless.js' ) }}"> </script>
 {% endblock %}
