@@ -22,7 +22,7 @@ def make_alg_vars(max_vars,v):
     n = randint(0, 10)
     num_vars-=1
     expr = v + "=" + str(n)
-
+    expr = str(n)
     vvars = [char for char in valid_vars]
     random.shuffle(vvars)
     num_vvars = 0
@@ -75,4 +75,4 @@ def make_alg(diff):
     if(diff == 2):
         return make_alg_mult_lines(3)
 
-print(make_alg(2)[0])
+print(make_alg(int(sys.argv[1]))[0])

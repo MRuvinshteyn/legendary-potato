@@ -15,7 +15,7 @@ proportions w/ similar triangles
 pythagorean theorem
 '''
 
-def make_trig(diff):
+def make_geo(diff):
     #beg
     if(diff == 0):
         i = randint(0,3)
