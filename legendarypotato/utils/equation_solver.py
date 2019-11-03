@@ -35,7 +35,7 @@ def getRes(input):
 
                         if str(child2.tag) == 'subpod':
                             for child3 in child2:
-                                print(child3.text)
+
                                 if child3.tag == 'img':
                                     answer['answer_img'] = child3.attrib['src']
                                 else:
