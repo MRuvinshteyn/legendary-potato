@@ -77,6 +77,7 @@ def auth():
         user = database_utils.authenticate(request.form['user'], request.form['pwd'])
         if user:
             session['user'] = str(user)
+            session.permanent = True
             return redirect(url_for('root'))
         else:
             flash('Incorrect username or password')
@@ -85,6 +86,7 @@ def auth():
         success = database_utils.create_user(request.form['user'], request.form['pwd'])
         if (success):
             session['user'] = str(success)
+            session.permanent = True
             return redirect(url_for('root'))
         else:
             flash('This username already exists!')
