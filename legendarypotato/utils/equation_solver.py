@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import itertools
 
 import requests
 from xml.dom import minidom
@@ -20,6 +21,7 @@ def getRes(input):
         for child in results: #Iterate through the different xml sections
 
             if 'title' in child.attrib.keys(): #Filter out irrelevant XML sections
+
                 if child.attrib['title'] == 'Input interpretation' or child.attrib['title'] == 'Input': #Scan for the initial equation
                     for child2 in child:    #Dig through more xml
                         if str(child2.tag) == 'subpod': #Find relevant tags
@@ -30,16 +32,19 @@ def getRes(input):
                                     answer[child.attrib['title'] + '_text'] = child3.text
                 if child.attrib['title'] == 'Results' or child.attrib['title'] == 'Exact result' or child.attrib['title'] == 'Decimal form' or child.attrib['title'] == 'Answer': #Scan for the Result
                     for child2 in child:
+
                         if str(child2.tag) == 'subpod':
                             for child3 in child2:
+
                                 if child3.tag == 'img':
                                     answer['answer_img'] = child3.attrib['src']
                                 else:
-                                    answer['acceptable_answers'].append(str(child3.text.split("\n").pop()).strip('|')) # add the plaintext answer to the list of acceptable answers
-
+                                    answer['acceptable_answers'].append(str(child3.text.split("\n").pop()).replace(" | ", "").replace('±',"").replace(" ", "").replace("x=", "").split('or')) # add the plaintext answer to the list of acceptable answers
+                                    answer['acceptable_answers'] = list(itertools.chain.from_iterable(answer['acceptable_answers'])) #Formatting
                 if "Reference" in child.attrib['title'] or "solution" in child.attrib['title'] or "Plot" in child.attrib['title'] or "Solution" in child.attrib['title']: #Scan for mostly trig and algebra stuff
                     for child2 in child:
                         for child3 in child2:
+
                             if child3.tag == 'plaintext':
                                 answer[child.attrib['title'] + '_text'] = child3.text
                             if child3.tag == 'img':
@@ -52,4 +57,3 @@ def getRes(input):
 
     return answer
 
-print(getRes(' x^2 - 3x + 8 '))

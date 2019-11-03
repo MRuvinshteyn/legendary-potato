@@ -10,7 +10,7 @@ def make_arith_basic(max_vars):
 
     n = randint(0, 10)
     num_vars-=1
-    expr = str(n)
+    expr = " " + str(n)
     
     while(num_vars!=0):
         n = randint(0,10)
@@ -52,8 +52,7 @@ def make_arith_exp(max_vars):
         #4 is ^
         elif(i == 4):
             n = randint(-3, 3)
-            tmp_expr += '^' + '(' + str(n)
-            add_parenths=1
+            tmp_expr += '**' + '(' + str(n) + ')'
 
         #gives parenthesis
         if(eval(expr+(')'*open_parenths)) == 0 and i == 4):
@@ -76,6 +75,7 @@ def make_arith_exp(max_vars):
         expr += ')'
         open_parenths-=1
 
+    expr.replace("**",'^')
     return [expr,""]
 
 #fractional operations
@@ -132,6 +132,7 @@ def make_arith():
         return make_arith_frac(n_vars, True)
     if(i == 3):
         return make_arith_frac(n_vars, False)
+    
 #print_ret(make_arith_basic(int(sys.argv[1])))
 #print_ret(make_arith_exp(int(sys.argv[1])))
 #print_ret(make_arith_frac(int(sys.argv[1]), True))

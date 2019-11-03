@@ -24,7 +24,34 @@ app.secret_key = os.urandom(16)
 @app.route("/")
 @require_login
 def root():
-    return render_template("home.html")
+    data = database_utils.get_user_by_id(session["user"])["elos"]
+
+    arithmetic_beginner = 1000
+    if "arithmetic_beginner" in data:
+        arithmetic_beginner = data["arithmetic_beginner"]
+
+    arithmetic_intermediate = 1000
+    if "arithmetic_intermediate" in data:
+        arithmetic_intermediate = data["arithmetic_intermediate"]
+
+    arithmetic_expert = 1000
+    if "arithmetic_expert" in data:
+        arithmetic_expert = data["arithmetic_expert"]
+
+    algebra_easy = 1000
+    if "algebra_easy" in data:
+        algebra_easy = data["algebra_easy"]
+
+    algebra_hard = 1000
+    if "algebra_hard" in data:
+        algebra_hard = data["algebra_hard"]
+
+    geometry = 1000
+    if "geometry" in data:
+        geometry = data["geometry"]
+
+    return render_template("home.html", arithmetic_beginner = arithmetic_beginner, arithmetic_intermediate = arithmetic_intermediate, arithmetic_expert = arithmetic_expert,
+                          algebra_easy = algebra_easy, algebra_hard = algebra_hard, geometry = geometry)
 
 @app.route("/single")
 @require_login
@@ -48,19 +75,17 @@ def auth():
         return redirect(url_for('login'))
 
     if request.form['submit'] == 'Login':
-        print(request.form)
-        print(database_utils.authenticate(request.form['user'], request.form['pwd']))
-        if database_utils.authenticate(request.form['user'], request.form['pwd']):
-            session['user'] = True
+        user = database_utils.authenticate(request.form['user'], request.form['pwd'])
+        if user:
+            session['user'] = str(user)
             return redirect(url_for('root'))
         else:
             flash('Incorrect username or password')
             return redirect(url_for('login'))
     else:
         success = database_utils.create_user(request.form['user'], request.form['pwd'])
-        print(success)
         if (success):
-            session['user'] = True
+            session['user'] = str(success)
             return redirect(url_for('root'))
         else:
             flash('This username already exists!')
