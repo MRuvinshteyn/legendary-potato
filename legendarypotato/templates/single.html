@@ -1,3 +1,24 @@
 {% extends "base.html" %}
 
 {% block active_link %}single-link{% endblock %}
+
+{% block body %}
+
+<form action="/game" method="GET">
+    <div class="container">
+        <div class="row">
+            <button class="col-sm-2 btn btn-light" name="subject" value="arithmetic_beginner">Arithmetic (Beginner)</button>
+            <button class="col-sm-2 btn btn-light" name="subject" value="arithmetic_intermediate">Arithmetic (Intermediate)</button>
+            <button class="col-sm-2 btn btn-light" name="subject" value="arithmetic_expert">Arithmetic (Expert)</button>
+        </div>
+        <div class="row">
+            <button class="col-sm-3 btn btn-light" name="subject" value="algebra_easy">Algebra (Easy)</button>
+            <button class="col-sm-3 btn btn-light" name="subject" value="algebra_hard">Algebra (Hard)</button>
+        </div>
+        <div class="row">
+            <button class="col-sm-6 btn btn-light" name="subject" value="geometry">Geometry/Trigonometry</button>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
