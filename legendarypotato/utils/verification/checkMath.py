@@ -52,5 +52,4 @@ def getRes(input):
 
     return answer
 
-print(getRes(' sin ( x / 6 ) = x '))
 
