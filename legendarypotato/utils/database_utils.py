@@ -2,12 +2,13 @@ from pymongo import MongoClient
 from hashlib import sha256
 from bson.objectid import ObjectId
 import datetime
+from random import randint
 
 client = MongoClient()
 db = client.legendarypotato
 users = db.users
 games = db.games
-
+questions = db.questions
 
 def hash_password(username, password):
     return sha256(str(username+password).encode('utf-8')).hexdigest()
@@ -50,3 +51,22 @@ def get_game_by_id(game_id):
 
 def get_games_by_player_id(player_id):
     return list(games.find({"players": ObjectId(player_id)}))
+
+def create_question(question_img, acceptable_answers, answer_img, subject):
+    question = questions.insert_one({
+        "question_img": question_img,
+        "acceptable_answers": acceptable_answers,
+        "answer_img": answer_img,
+        "subject": subject
+    })
+    return question.inserted_id
+
+def get_questions_by_subject(subject):
+    return list(questions.find({"subject": subject}))
+
+def get_random_question_by_subject(subject):
+    all_questions = get_questions_by_subject(subject)
+    return all_questions[randint(0, len(all_questions)-1)]
+
+def get_question_by_id(id_num):
+    return questions.find_one({"_id": ObjectId(id_num)})
