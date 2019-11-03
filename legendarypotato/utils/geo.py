@@ -37,37 +37,38 @@ def make_deg_to_rad():
     deg = spec_angles[randint(0,4)]*randint(0,4)
     rad = math.radians(deg)/math.pi
 
-    print("\nConvert from degrees to radians: ")
-    print(deg)
-    print("Answer:")
-    print(rad)
+    question = "Convert from degrees to radians: " + str(deg)
+    answer = rad
+    return [question,answer]
 
+    
 def make_rad_to_deg():
     deg = spec_angles[randint(0,4)]*randint(0,4)
     rad = math.radians(deg)/math.pi
 
-    print("\nConvert from radians to degrees: ")
-    print(rad)
-    print("Answer:")
-    print(deg)
+    question = "Convert from radians to degrees: " + str(rad)
+    answer = rad
+    return [question,answer]
 
 def make_area():
+
     shape_type = randint(0,2)
+
+    question = ""
+    answer = ""
     
     #circle
     if(shape_type == 0):
         radius = randint(0,25)
-        print("\nFind the area of a circle with radius " + str(radius))
-        print("Answer:")
-        print(str(radius*radius)+"pi")
+        question = "Find the area of a circle with radius " + str(radius)
+        answer = str(radius*radius)+"pi"
         
     #triangle
     if(shape_type == 1):
         base = randint(1,25)
         height = randint(1,25)
-        print("\nFind the area of a triangle with base " + str(base) + " and height " + str(height))
-        print("Answer:")
-        print(base*height/2)
+        question = "Find the area of a triangle with base " + str(base) + " and height " + str(height)
+        answer = base*height/2
 
     #quadrilateral
     if(shape_type == 2):
@@ -75,99 +76,89 @@ def make_area():
         if(randint(0,1) == 0):
             height = randint(1,25)
             width = randint(1,25)
-            print("\nFind the area of a rectangle with height " + str(height) + " and width " + str(width))
-            print("Answer:")
-            print(height*width)
+            question = "Find the area of a rectangle with height " + str(height) + " and width " + str(width)
+            answer = height*width
         #trapezoid
         else:
             base1 = randint(1,25)
             base2 = randint(1,25)
             height = randint(1,25)
-            print("\nFind the area of a trapezoid with base lengths " + str(base1) + " and " + str(base2) + ", and height " + str(height))
-            print("Answer:")
-            print(0.5*height*(base1+base2))
+            question = "Find the area of a trapezoid with base lengths " + str(base1) + " and " + str(base2) + ", and height " + str(height)
+            answer = 0.5*height*(base1+base2)
+    return [question,answer]
 
 def make_volume():
     shape_type = randint(0,5)
     #sphere
     if(shape_type == 0):
         radius = randint(1,10)
-        print("\nFind the volume of a sphere with radius " + str(radius))
-        print("Answer:")
-        print(str((radius**3)*4/3)+"pi")
+        question = "Find the volume of a sphere with radius " + str(radius)
+        answer = str((radius**3)*4/3)+"pi"
     #cone
     if(shape_type == 1):
         radius = randint(1,10)
         height = randint(1,10)
-        print("\nFind the volume of a cone with radius " + str(radius) + " and height " + str(height))
-        print("Answer:")
-        print(str(radius*radius*height/3)+"pi")
+        question = "Find the volume of a cone with radius " + str(radius) + " and height " + str(height)
+        answer = str(radius*radius*height/3)+"pi"
     #cube
     if(shape_type == 2):
         side = randint(1,10)
-        print("\nFind the volume of a cube with side length " + str(side))
-        print("Answer:")
-        print(side**3)
+        question = "Find the volume of a cube with side length " + str(side)
+        answer = side**3
     #cylinder
     if(shape_type == 3):
         radius = randint(1,10)
         height = randint(1,10)
-        print("\nFind the volume of a cylinder with radius " + str(radius) + " and height " + str(height))
-        print("Answer:")
-        print(str(radius*radius*height)+"pi")
+        question = "Find the volume of a cylinder with radius " + str(radius) + " and height " + str(height)
+        answer = str(radius*radius*height)+"pi"
     #triangular prisms
     if(shape_type == 4):
         base = randint(1,10)
         height1 = randint(1,10)
         height2 = randint(1,10)
-        print("\nFind the volume of a triangular prism with height " + str(height2) + " and a base with base " + str(base) + " and height " + str(height1))
-        print("Answer:")
-        print(base*height1*height2/2)
+        question = "Find the volume of a triangular prism with height " + str(height2) + " and a base with base " + str(base) + " and height " + str(height1)
+        answer = base*height1*height2/2
     #rectangular prisms
     if(shape_type == 5):
         height = randint(1,10)
         width = randint(1,10)
         depth = randint(1,10)
-        print("\nFind the volume of a rectangular prism with height %d, width %d, and depth %d" %(height, width, depth))
-        print("Answer:")
-        print(height*width*depth)
-        
+        question = "Find the volume of a rectangular prism with height %d, width %d, and depth %d" %(height, width, depth)
+        answer = height*width*depth
+    return [question, answer]
+
 def make_surf_area():
     shape_type = randint(0,4)
     #sphere
     if(shape_type == 0):
         radius = randint(1,10)
-        print("\nFind the surface area of a sphere with radius " + str(radius))
-        print("Answer:")
-        print(str(4*radius*radius)+"pi")
+        question = "Find the surface area of a sphere with radius " + str(radius))
+        answer = str(4*radius*radius)+"pi"
     #cone
     if(shape_type == 1):
         radius = randint(1,10)
         height = randint(1,10)
-        print("\nFind the surface area of a cone with radius " + str(radius) + " and height " + str(height))
-        print("Answer:")
-        print(str(radius*(radius+math.sqrt(height*height+radius*radius)))+"pi")
+        question = "Find the surface area of a cone with radius " + str(radius) + " and height " + str(height)
+        answer = str(radius*(radius+math.sqrt(height*height+radius*radius)))+"pi"
     #cube
     if(shape_type == 2):
         side = randint(1,10)
-        print("\nFind the surface area of a cube with side length " + str(side))
-        print("Answer:")
-        print(6*side*side)
+        question = "\nFind the surface area of a cube with side length " + str(side)
+        answer = 6*side*side
     #cylinder
     if(shape_type == 3):
         radius = randint(1,10)
         height = randint(1,10)
-        print("\nFind the surface area of a cylinder with radius " + str(radius) + " and height " + str(height))
-        print("Answer:")
-        print(str(2*radius*(radius+height))+"pi")
+        question = "Find the surface area of a cylinder with radius " + str(radius) + " and height " + str(height)
+        answer = str(2*radius*(radius+height))+"pi"
     #rectangular prisms
     if(shape_type == 4):
         height = randint(1,10)
         width = randint(1,10)
         depth = randint(1,10)
-        print("\nFind the surface area of a rectangular prism with height %d, width %d, and depth %d" %(height, width, depth))
-        print("Answer:")
-        print(2*(height*width + height*depth + width*depth))
+        question = "Find the surface area of a rectangular prism with height %d, width %d, and depth %d" %(height, width, depth)
+        answer = 2*(height*width + height*depth + width*depth)
+    return [question,answer]
 
 def make_eq_line():
     #given 2 points
