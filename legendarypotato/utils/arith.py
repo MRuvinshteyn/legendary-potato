@@ -103,7 +103,7 @@ def make_arith_frac(max_vars, same_dem):
             while(n2 == 0):
                 n2 = randint(0, 10)
         
-        i = randint(0,3)
+        i = randint(0,2)
         if(same_dem):
             i = randint(0,1)
         expr += ops[i] + '(' + str(n1) + '/' + str(n2) + ')'
