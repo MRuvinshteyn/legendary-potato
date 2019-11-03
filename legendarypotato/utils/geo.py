@@ -54,17 +54,24 @@ def make_deg_to_rad():
     deg = spec_angles[randint(0,4)]*randint(0,4)
     rad = math.radians(deg)/math.pi
 
+    rad = round(rad,2)
+    deg = round(deg, 2)
+
     question = "Convert from degrees to radians: " + str(deg)
-    answer = rad
+    answer = deg
     return [question,answer]
 
     
 def make_rad_to_deg():
     deg = spec_angles[randint(0,4)]*randint(0,4)
     rad = math.radians(deg)/math.pi
+    deg = rad*math.pi
 
+    rad = round(rad,2)
+    deg = round(deg, 2)
     question = "Convert from radians to degrees: " + str(rad)
-    answer = rad
+    answer = deg
+
     return [question,answer]
 
 def make_area():
@@ -142,6 +149,7 @@ def make_volume():
         depth = randint(1,10)
         question = "Find the volume of a rectangular prism with height %d, width %d, and depth %d" %(height, width, depth)
         answer = height*width*depth
+
     return [question, answer]
 
 def make_surf_area():
@@ -160,7 +168,7 @@ def make_surf_area():
     #cube
     if(shape_type == 2):
         side = randint(1,10)
-        question = "\nFind the surface area of a cube with side length " + str(side)
+        question = "Find the surface area of a cube with side length " + str(side)
         answer = 6*side*side
     #cylinder
     if(shape_type == 3):
@@ -311,21 +319,23 @@ def make_pyth_thm():
     answer = trips[2]
     return [question,answer]
 
-'''
-i = 10
-while( i != 0):
-    print(make_trig(0)[0])
-    i-=1
+if(len(sys.argv) == 1):
+    for diff in range(3):
+        i = 10
+        while( i != 0):
+            ret = make_geo(diff)
+            print()
+            print(ret[0] + "\nANSWER: " + str(ret[1]))
+            i-=1
+        print()
+        print("=============================================================")
+        print()
+    
+else:
+    i = 10
+    while( i != 0):
+        ret = make_geo(int(sys.argv[1]))
+        print()
+        print(ret[0] + "\nANSWER: " + str(ret[1]))
+        i-=1
 
-print()
-i = 10
-while( i != 0):
-    print(make_trig(1)[0])
-    i-=1
-
-print()
-i = 10
-while( i != 0):
-    print(make_trig(2)[0])
-    i-=1
-'''
