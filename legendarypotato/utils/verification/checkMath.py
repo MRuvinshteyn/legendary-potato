@@ -7,32 +7,50 @@ import xml.etree.ElementTree as ET
 
 
 def getRes(input):
-	server = 'http://api.wolframalpha.com/v2/query?'
-	appid = '6QYPX8-HUAE3WKH7J'
-	input = 'solve'+input
-	answer = list()
-	queryStr = server + 'appid=' + appid + '&input=solve' + input + '&podstate=Result__Step-by-step+solution&format=plaintext'
+    server = 'http://api.wolframalpha.com/v2/query?'
+    appid = '6QYPX8-HUAE3WKH7J'
+    input = 'solve'+input
+    answer = list()
+    queryStr = server + 'appid=' + appid + '&input=solve' + input + '&podstate=Result__Step-by-step+solution'
 
-	print(requests.api.get(queryStr).content)
-	results = ET.fromstring((requests.api.get(queryStr).content))
-	for child in results:
-		print(child.attrib['title'])
-		if child.attrib['title'] == 'Input interpretation':
-			for child2 in child:
-				print(child2.tag)
-				if str(child2.tag) == 'subpod':
-					for child3 in child2:
-						print(child3.text)
-						answer.append(child3.text)
-		if child.attrib['title'] == 'Results':
-			for child2 in child:
-				print(child2.tag)
-				if str(child2.tag) == 'subpod':
-					for child3 in child2:
-						print(child3.text)
-						answer.append(child3.text)
+    print(requests.api.get(queryStr).content)
+    results = ET.fromstring((requests.api.get(queryStr).content))
+    if results.attrib['success'] != 'false':
 
-	return answer
+        for child in results:
 
-#print(getRes('+3x-7%3D11'))
+            if child.attrib['title'] == 'Input interpretation' or child.attrib['title'] == 'Input':
+                for child2 in child:
+
+                    if str(child2.tag) == 'subpod':
+                        for child3 in child2:
+                            if child3.tag == 'img':
+                                answer.append(child3.attrib['src'])
+                            else:
+                                answer.append(child3.text)
+            if child.attrib['title'] == 'Results' or child.attrib['title'] == 'Exact result' or child.attrib['title'] == 'Decimal form':
+                for child2 in child:
+
+                    if str(child2.tag) == 'subpod':
+                        for child3 in child2:
+                            if child3.tag == 'img':
+                                answer.append(child3.attrib['src'])
+                            else:
+                                answer.append(child3.text)
+            if "Reference" in child.attrib['title']:
+                for child2 in child:
+                    for child3 in child2:
+                        if child3.tag == 'plaintext':
+                            answer.append(child3.text)
+                        if child3.tag == 'img':
+                            answer.append(child3.attrib['src'])
+    else:
+        print("The equation cannot be solved as written")
+        for child in results:
+            for child2 in child:
+                print("did you mean: " + child2.text + " ?")
+
+    return answer
+
+print(getRes(' sin ( pi / 6 ) '))
 
