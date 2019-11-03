@@ -1,3 +1,19 @@
 {% extends "base.html" %}
 
 {% block active_link %}login-link{% endblock %}
+
+{% block body %}
+<div class="well modal-sm center-block">
+    <form action="/auth" method="POST">
+        <div class="form-group">
+            <label for="user">Username:</label><br>
+            <input type="text" name="user" id="user">
+        </div>
+        <div class="form-group">
+            <label for="pwd">Password:</label><br>
+            <input type="password" name="pwd" id="pwd">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+</div>
+{% endblock %}
