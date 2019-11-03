@@ -75,7 +75,7 @@ def make_arith_exp(max_vars):
         expr += ')'
         open_parenths-=1
 
-    expr.replace("**",'^')
+    expr = expr.replace("**",'^')
     return [expr,""]
 
 #fractional operations
