@@ -16,6 +16,14 @@ def getRes(input):
 	print(requests.api.get(queryStr).content)
 	results = ET.fromstring((requests.api.get(queryStr).content))
 	for child in results:
+		print(child.attrib['title'])
+		if child.attrib['title'] == 'Input interpretation':
+			for child2 in child:
+				print(child2.tag)
+				if str(child2.tag) == 'subpod':
+					for child3 in child2:
+						print(child3.text)
+						answer.append(child3.text)
 		if child.attrib['title'] == 'Results':
 			for child2 in child:
 				print(child2.tag)
@@ -26,5 +34,5 @@ def getRes(input):
 
 	return answer
 
-print(getRes('+3x-7%3D11'))
+#print(getRes('+3x-7%3D11'))
 
