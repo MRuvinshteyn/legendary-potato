@@ -3,65 +3,87 @@ import sys
 
 ops = ['+', '-', '*', '/']
 
-def make_alg1(max_vars):
+#basic operations
+def make_alg_basic(max_vars):
+
     num_vars = randint(2, max_vars)
 
-    expr = ""
-    
-    while(num_vars!=0):
-        n = randint(0, 100)
-        i = randint(0,3)
-        expr += str(n) + ops[i]
-        num_vars-=1
-
-    expr = expr[0:len(expr)-1]
-    print_expr(expr)
-
-def make_alg2(max_vars):
-    num_vars = randint(2, max_vars)
-
-    open_parenths = 0
-    
-    n = randint(0, 100)
+    n = randint(0, 10)
     num_vars-=1
     expr = str(n)
     
     while(num_vars!=0):
-        n = randint(0, 100)
-        i = randint(0,5)
+        n = randint(0,10)
+        i = randint(0,3)
+        temp_exp = expr + ops[i] + str(n)
+        if(not (ops[i] == '/' and n == 0)):
+            ev = eval(temp_exp)
+            if(isinstance(ev, int)):
+                expr = temp_exp
+                num_vars-=1
+            
+
+    print("\nSolve:")
+    print(expr)
+    print("Answer:")
+    print(eval(expr))
+
+
+#exponents + parenthe+sis
+def make_alg_exp(max_vars):
+    num_vars = randint(2, max_vars)
+
+    open_parenths = 0
+    
+    n = randint(0, 10)
+    num_vars-=1
+    expr = str(n)
+    
+    while(num_vars!=0):
+        n = randint(0, 10)
+        i = randint(0,4)
+        i2 = randint(0,1)
         
-        
+        tmp_expr = expr
+        add_parenths = 0
+                
         #0-3 is basic operations
         if(i < 4):
-            expr += ops[i] + str(n)
+            if(ops[i] == '/' and n == 0):
+                continue
+            tmp_expr += ops[i] + '('*i2 + str(n)
+            add_parenths = i2
         #4 is ^
         elif(i == 4):
-            expr += '^' + '(' + str(n)
-            open_parenths+=1
-        #5 is opening a parenthesis
-        elif(i == 5):
-            expr += '(' + str(n)
-            open_parenths+=1
+            n = randint(-3, 3)
+            tmp_expr += '**' + '(' + str(n)
+            add_parenths=1
 
+        #gives parenthesis
+        if(eval(expr+(')'*open_parenths)) == 0 and i == 4):
+            continue
+
+        clos_paren = ')' * (open_parenths+add_parenths)
+        ev = eval(tmp_expr+clos_paren)
+        if(isinstance(ev, int)):
+            expr = tmp_expr
+            num_vars-=1
+            open_parenths += add_parenths
+            
+                
         #0 means closing parenths
         if(randint(0,1) == 0 and open_parenths != 0):
             expr += ')'
             open_parenths-=1
-        num_vars-=1
 
     while(open_parenths != 0):
         expr += ')'
         open_parenths-=1
     print("\nSolve:")
     print(expr)
-    #print_expr(expr)
-    
-def print_expr(expr):
-    print("\nSolve:")
-    for op in ops:
-        expr = expr.replace(op, " "+op+" ")
-    print(expr)
-    
+    print("Answer:")
+    print(eval(expr))
 
-make_alg1(int(sys.argv[1]))
-make_alg2(int(sys.argv[1]))
+#make_alg(int(sys.argv[1]))
+make_alg_basic(int(sys.argv[1]))
+make_alg_exp(int(sys.argv[1]))
