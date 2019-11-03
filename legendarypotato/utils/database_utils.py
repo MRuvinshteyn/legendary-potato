@@ -33,7 +33,7 @@ def authenticate(username, password):
     user = get_user_by_name(username)
     if user == None:
         return False
-    return user["password"] == hashPass(username, password)
+    return user["password"] == hash_password(username, password)
 
 def create_game(player1, player2, endless, subject):
     game = games.insert_one({
