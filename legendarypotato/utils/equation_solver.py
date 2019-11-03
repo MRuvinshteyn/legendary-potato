@@ -8,7 +8,7 @@ import xml.etree.ElementTree as ET
 
 def getRes(input):
     server = 'http://api.wolframalpha.com/v2/query?'
-    appid = '6QYPX8-HUAE3WKH7J'
+    appid = ''
     input = 'solve'+input
     answer = {}
     queryStr = server + 'appid=' + appid + '&podstate=Result__Step-by-step+solution'
