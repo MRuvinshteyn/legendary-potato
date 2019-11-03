@@ -109,11 +109,11 @@ def game():
     elif subject == 'arithmetic_expert':
         question = utils.arith.make_arith()[0]
 
-    answers = equation_solver.getRes(question)
-    inputPic = answers['input_img']
+    equation = equation_solver.getRes(question)
+    inputPic = equation['input_img']
+    answerPic = equation['answer_img']
+    answers = equation['possible_answers']
 
-
-    answerPic = answers['answer_img']
 
     return render_template("endless.html", questionImg = inputPic)
 
